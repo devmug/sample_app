@@ -18,16 +18,25 @@ describe User do
   end
 
   subject { @user }
+  
+  # its(:remember_token) { should_not be_blank }
+  # is equivalent to  it { @user.remember_token.should_not be_blank }
+  
+  describe "remember token" do
+     before { @user.save }
+     its(:remember_token) { should_not be_blank }
+  end  
+  
+  it { should be_valid }
 
   it { should respond_to(:name) }
   it { should respond_to(:email) }
   it { should respond_to(:password_digest) }
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }
+  it { should respond_to(:remember_token) }
   it { should respond_to(:authenticate) }
-
-  it { should be_valid }
-
+  
   describe "when name is not present" do
     before { @user.name = " " }
     it { should_not be_valid }
@@ -109,6 +118,7 @@ describe User do
     end
   end
   
+
  
 
 
